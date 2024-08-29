@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Reading Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #50E3C2;
+            --background-color: #F4F7FC;
+            --text-color: #333333;
+            --white: #FFFFFF;
+            --correct-color: #4CAF50;
+            --incorrect-color: #F44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #3A7BC8;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #3ED1B0;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #E0E0E0;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .story {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .answer-btn {
+            background-color: #F0F0F0;
+            border: 2px solid #E0E0E0;
+            border-radius: 25px;
+            padding: 0.8rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            background-color: #E8E8E8;
+        }
+
+        .answer-btn.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .answer-btn.correct {
+            background-color: var(--correct-color);
+            color: var(--white);
+            border-color: var(--correct-color);
+        }
+
+        .answer-btn.incorrect {
+            background-color: var(--incorrect-color);
+            color: var(--white);
+            border-color: var(--incorrect-color);
+        }
+
+        .score {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .hint {
+            font-style: italic;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        #feedback {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Modern Reading Game</h1>
+        
+        <div id="main-menu" class="card">
+            <button id="start-game" class="btn btn-primary">Start Game</button>
+        </div>
+
+        <div id="game-screen" class="hidden">
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+
+            <div id="timer" class="timer">Time: 60s</div>
+
+            <div id="story-container" class="card fade-in">
+                <p id="story-text" class="story"></p>
+                <button id="read-story" class="btn btn-secondary">Read Story</button>
+            </div>
+
+            <div id="questions-container" class="card fade-in"></div>
+
+            <button id="check-answers" class="btn btn-primary">Check Answers</button>
+            <button id="next-story" class="btn btn-secondary hidden">Next Story</button>
+
+            <div id="feedback"></div>
+        </div>
+
+        <button id="back-to-main" class="btn btn-secondary">Back to Main</button>
+
+        <div id="score-container" class="score">
+            Total Score: <span id="total-score">0</span>
+        </div>
+    </div>
+
+    <script>
+        let stories = [];
+        let currentStoryIndex = 0;
+        let totalScore = 0;
+        let selectedAnswers = [];
+        let timer;
+        let timeLeft = 60;
+
+        // Fetch stories from JSON file
+        fetch('stories.json')
+            .then(response => response.json())
+            .then(data => {
+                stories = data.stories;
+            })
+            .catch(error => {
+                console.error('Error fetching stories:', error);
+                alert('Failed to load stories. Please try again later.');
+            });
+
+        const startGameBtn = document.getElementById('start-game');
+        const gameScreen = document.getElementById('game-screen');
+        const mainMenu = document.getElementById('main-menu');
+        const storyText = document.getElementById('story-text');
+        const readStoryBtn = document.getElementById('read-story');
+        const questionsContainer = document.getElementById('questions-container');
+        const checkAnswersBtn = document.getElementById('check-answers');
+        const nextStoryBtn = document.getElementById('next-story');
+        const backToMainBtn = document.getElementById('back-to-main');
+        const totalScoreSpan = document.getElementById('total-score');
+        const progressBar = document.getElementById('progress');
+        const timerElement = document.getElementById('timer');
+        const feedbackElement = document.getElementById('feedback');
+
+        startGameBtn.addEventListener('click', startGame);
+        readStoryBtn.addEventListener('click', readStory);
+        checkAnswersBtn.addEventListener('click', checkAnswers);
+        nextStoryBtn.addEventListener('click', nextStory);
+        backToMainBtn.addEventListener('click', backToMain);
+
+        function startGame() {
+            mainMenu.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+            loadStory(currentStoryIndex);
+            startTimer();
+        }
+
+        function loadStory(index) {
+            const story = stories[index];
+            storyText.textContent = story.story;
+            
+            questionsContainer.innerHTML = '';
+            story.questions.forEach((question, qIndex) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.classList.add('question-group', 'fade-in');
+                questionDiv.innerHTML = `
+                    <p class="question">${question.question}</p>
+                    <button class="btn btn-secondary read-question" data-question="${qIndex}">
+                        Read Question
+                    </button>
+                    <div class="answers">
+                        ${question.answers.map((answer, aIndex) => `
+                            <button class="answer-btn" data-question="${qIndex}" data-answer="${aIndex}">
+                                ${answer}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <p class="hint">Hint: ${question.hint || 'No hint available'}</p>
+                `;
+                questionsContainer.appendChild(questionDiv);
+            });
+
+            updateProgressBar();
+            
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.addEventListener('click', selectAnswer);
+            });
+
+            document.querySelectorAll('.read-question').forEach(btn => {
+                btn.addEventListener('click', readQuestion);
+            });
+
+            selectedAnswers = [];
+            nextStoryBtn.classList.add('hidden');
+            checkAnswersBtn.classList.remove('hidden');
+            feedbackElement.textContent = '';
+        }
+
+        function readStory() {
+            const utterance = new SpeechSynthesisUtterance(storyText.textContent);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function readQuestion(event) {
+            const questionIndex = event.target.getAttribute('data-question');
+            const questionText = stories[currentStoryIndex].questions[questionIndex].question;
+            const utterance = new SpeechSynthesisUtterance(questionText);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function selectAnswer(event) {
+            const questionIndex = event.target.getAttribute('data-question');
+            const answerIndex = event.target.getAttribute('data-answer');
+            
+            document.querySelectorAll(`[data-question="${questionIndex}"]`).forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            
+            selectedAnswers[questionIndex] = parseInt(answerIndex);
+        }
+
+        function checkAnswers() {
+            let correctAnswers = 0;
+            const story = stories[currentStoryIndex];
+            
+            story.questions.forEach((question, index) => {
+                const selectedAnswer = selectedAnswers[index];
+                const correctAnswer = question.correctAnswer;
+                
+                const answerButtons = document.querySelectorAll(`.answer-btn[data-question="${index}"]`);
+                answerButtons.forEach(btn => btn.disabled = true);
+                
+                if (selectedAnswer === correctAnswer) {
+                    correctAnswers++;
+                    answerButtons[selectedAnswer].classList.add('correct');
+                } else if (selectedAnswer !== undefined) {
+                    answerButtons[selectedAnswer].classList.add('incorrect');
+                    answerButtons[correctAnswer].classList.add('correct');
+                } else {
+                    answerButtons[correctAnswer].classList.add('correct');
+                }
+            });
+
+            totalScore += correctAnswers;
+            totalScoreSpan.textContent = totalScore;
+
+            const resultMessage = `You got ${correctAnswers} out of ${story.questions.length} correct!`;
+            feedbackElement.textContent = resultMessage;
+
+            nextStoryBtn.classList.remove('hidden');
+            checkAnswersBtn.classList.add('hidden');
+
+            clearInterval(timer);
+        }
+
+        function nextStory() {
+            currentStoryIndex++;
+            if (currentStoryIndex < stories.length) {
+                loadStory(currentStoryIndex);
+                resetTimer();
+            } else {
+                alert('Congratulations! You have completed all stories.');
+                backToMain();
+            }
+        }
+
+        function backToMain() {
+            gameScreen.classList.add('hidden');
+            mainMenu.classList.remove('hidden');
+            currentStoryIndex = 0;
+            totalScore = 0;
+            totalScoreSpan.textContent = totalScore;
+            updateProgressBar();
+            clearInterval(timer);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentStoryIndex + 1) / stories.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function startTimer() {
+            timeLeft = 60;
+            updateTimerDisplay();
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    checkAnswers();
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            startTimer();
+        }
+
+        function updateTimerDisplay() {
+            timerElement.textContent = `Time: ${timeLeft}s`;
+        }
+    </script>
+</body>
+</html>

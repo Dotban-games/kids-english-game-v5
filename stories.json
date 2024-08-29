@@ -1,0 +1,324 @@
+{
+  "stories": [
+    {
+      "story": "The cat ran fast.",
+      "questions": [
+        {
+          "question": "What did the cat do?",
+          "answers": ["ran", "jumped", "walked", "sat"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "How did the cat run?",
+          "answers": ["slowly", "fast", "quickly", "happily"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Who ran fast?",
+          "answers": ["The dog", "The cat", "The bird", "The fish"],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "story": "A big dog barked.",
+      "questions": [
+        {
+          "question": "What did the dog do?",
+          "answers": ["barked", "ran", "jumped", "ate"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "How was the dog?",
+          "answers": ["big", "small", "loud", "fast"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "What animal is in the story?",
+          "answers": ["cat", "dog", "bird", "fish"],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "story": "The sun is hot.",
+      "questions": [
+        {
+          "question": "What is hot?",
+          "answers": ["The moon", "The sun", "The water", "The ice"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "What is the sun?",
+          "answers": ["cold", "hot", "wet", "dry"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the sun?",
+          "answers": ["in the sky", "in the water", "on the ground", "in the tree"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The bird sings well.",
+      "questions": [
+        {
+          "question": "What does the bird do?",
+          "answers": ["dances", "jumps", "sings", "sleeps"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "How does the bird sing?",
+          "answers": ["poorly", "quietly", "loudly", "well"],
+          "correctAnswer": 3
+        },
+        {
+          "question": "Who sings well?",
+          "answers": ["The dog", "The cat", "The bird", "The fish"],
+          "correctAnswer": 2
+        }
+      ]
+    },
+    {
+      "story": "She has five apples.",
+      "questions": [
+        {
+          "question": "How many apples does she have?",
+          "answers": ["three", "five", "ten", "seven"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Who has five apples?",
+          "answers": ["He", "They", "She", "We"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "What does she have?",
+          "answers": ["bananas", "apples", "oranges", "grapes"],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "story": "The tree is tall.",
+      "questions": [
+        {
+          "question": "What is tall?",
+          "answers": ["The tree", "The cat", "The dog", "The bird"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "How is the tree?",
+          "answers": ["short", "tall", "wide", "thin"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the tree?",
+          "answers": ["in the sky", "in the park", "in the house", "in the water"],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "story": "The car is blue.",
+      "questions": [
+        {
+          "question": "What color is the car?",
+          "answers": ["red", "green", "blue", "yellow"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "What is blue?",
+          "answers": ["The bike", "The car", "The bus", "The truck"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the car?",
+          "answers": ["in the garage", "on the street", "in the park", "in the garden"],
+          "correctAnswer": 1
+        }
+      ]
+    },
+    {
+      "story": "He likes to swim.",
+      "questions": [
+        {
+          "question": "What does he like to do?",
+          "answers": ["run", "jump", "swim", "dance"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "Who likes to swim?",
+          "answers": ["She", "He", "They", "We"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where does he swim?",
+          "answers": ["in the pool", "in the park", "in the car", "in the house"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The cake is sweet.",
+      "questions": [
+        {
+          "question": "What is sweet?",
+          "answers": ["The cookie", "The bread", "The cake", "The apple"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "How is the cake?",
+          "answers": ["bitter", "salty", "sweet", "sour"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "What food is in the story?",
+          "answers": ["cake", "bread", "cookie", "apple"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The stars are bright.",
+      "questions": [
+        {
+          "question": "What is bright?",
+          "answers": ["The sun", "The stars", "The moon", "The light"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "How are the stars?",
+          "answers": ["dark", "bright", "dim", "cold"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where are the stars?",
+          "answers": ["in the sky", "in the ocean", "on the ground", "in the tree"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The book is old.",
+      "questions": [
+        {
+          "question": "What is old?",
+          "answers": ["The book", "The pen", "The paper", "The table"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "How is the book?",
+          "answers": ["new", "old", "torn", "big"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the book?",
+          "answers": ["in the library", "in the house", "on the shelf", "under the bed"],
+          "correctAnswer": 2
+        }
+      ]
+    },
+    {
+      "story": "The grass is green.",
+      "questions": [
+        {
+          "question": "What color is the grass?",
+          "answers": ["blue", "yellow", "green", "red"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "What is green?",
+          "answers": ["The tree", "The grass", "The car", "The flower"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the grass?",
+          "answers": ["in the park", "in the house", "on the street", "in the sky"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The sky is blue.",
+      "questions": [
+        {
+          "question": "What color is the sky?",
+          "answers": ["blue", "green", "yellow", "red"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "What is blue?",
+          "answers": ["The sky", "The grass", "The tree", "The flower"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "Where is the sky?",
+          "answers": ["in the park", "in the house", "above us", "on the ground"],
+          "correctAnswer": 2
+        }
+      ]
+    },
+    {
+      "story": "The fish can swim.",
+      "questions": [
+        {
+          "question": "What can the fish do?",
+          "answers": ["jump", "run", "swim", "fly"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "Who can swim?",
+          "answers": ["The cat", "The dog", "The fish", "The bird"],
+          "correctAnswer": 2
+        },
+        {
+          "question": "Where does the fish swim?",
+          "answers": ["in the ocean", "in the park", "in the sky", "in the house"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The moon is bright.",
+      "questions": [
+        {
+          "question": "What is bright?",
+          "answers": ["The moon", "The sun", "The star", "The cloud"],
+          "correctAnswer": 0
+        },
+        {
+          "question": "How is the moon?",
+          "answers": ["dark", "bright", "dim", "small"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the moon?",
+          "answers": ["in the sky", "in the ocean", "on the ground", "in the tree"],
+          "correctAnswer": 0
+        }
+      ]
+    },
+    {
+      "story": "The dog is happy.",
+      "questions": [
+        {
+          "question": "Who is happy?",
+          "answers": ["The cat", "The dog", "The bird", "The fish"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "How is the dog?",
+          "answers": ["sad", "happy", "angry", "scared"],
+          "correctAnswer": 1
+        },
+        {
+          "question": "Where is the dog?",
+          "answers": ["in the park", "in the house", "in the car", "on the street"],
+          "correctAnswer": 1
+        }
+      ]
+    }
+  ]
+}
